@@ -2,8 +2,6 @@
 
 namespace Finalizer\Constraint;
 
-use Finalizer\Reflection\InheritanceClasses;
-
 final class IsFinalizable
 {
     /**
