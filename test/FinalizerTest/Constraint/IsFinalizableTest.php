@@ -24,12 +24,17 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
     public function finalizableClassesProvider()
     {
         return [
-            [
-                new \ReflectionClass(__CLASS__),
+            'class with parent class' => [
+                new \ReflectionClass(\Exception::class),
                 [
-                    new \ReflectionClass(__CLASS__),
+                    new \ReflectionClass(\LogicException::class),
                 ],
                 false,
+            ],
+            'class with no children' => [
+                new \ReflectionClass(__CLASS__),
+                [],
+                true,
             ],
         ];
     }
