@@ -13,9 +13,11 @@ final class IsFinalizable
     public function __invoke(\ReflectionClass $class, \ReflectionClass ...$definedClasses)
     {
         return ! $class->isAbstract()
-            && $class->getInterfaces()
             && ! $this->hasChildClasses($class, $definedClasses)
-            && $this->implementsOnlyInterfaceMethods($class);
+            && (
+                ($class->getInterfaces() && $this->implementsOnlyInterfaceMethods($class))
+                ||  ($class->hasMethod('__invoke') && ! $class->getMethod('__invoke')->isStatic() && count($class->getMethods()) === 1)
+            );
     }
 
     /**
