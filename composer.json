@@ -6,7 +6,8 @@
     },
     "autoload-dev": {
         "psr-0": {
-            "FinalizerTest\\": "src"
+            "FinalizerTest\\":      "test",
+            "FinalizerTestAsset\\": "test"
         }
     },
     "require": {
