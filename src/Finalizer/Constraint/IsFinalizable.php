@@ -16,8 +16,22 @@ final class IsFinalizable
             && ! $this->hasChildClasses($class, $definedClasses)
             && (
                 ($class->getInterfaces() && $this->implementsOnlyInterfaceMethods($class))
-                ||  ($class->hasMethod('__invoke') && ! $class->getMethod('__invoke')->isStatic() && count($class->getMethods()) === 1)
+                || $this->isOnlyInvokable($class)
             );
+    }
+
+    /**
+     * Checks whether a given class is an invokable, and whether no other methods are implemented on it
+     *
+     * @param \ReflectionClass $class
+     *
+     * @return bool
+     */
+    private function isOnlyInvokable(\ReflectionClass $class)
+    {
+        return $class->hasMethod('__invoke')
+            && ! $class->getMethod('__invoke')->isStatic()
+            && 1 === count($class->getMethods());
     }
 
     /**
