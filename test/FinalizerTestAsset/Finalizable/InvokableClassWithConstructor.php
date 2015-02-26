@@ -7,6 +7,9 @@ namespace FinalizerTestAsset\Finalizable;
  */
 class InvokableClassWithConstructor
 {
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
     }
