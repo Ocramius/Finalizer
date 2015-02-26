@@ -3,6 +3,8 @@
 namespace FinalizerTest\Constraint;
 
 use Finalizer\Constraint\IsFinalizable;
+use FinalizerTestAsset\Finalizable;
+use FinalizerTestAsset\NonFinalizable;
 
 class IsFinalizableTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,15 +26,25 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
     public function finalizableClassesProvider()
     {
         return [
-            'class with child classes' => [
-                new \ReflectionClass(\Exception::class),
+            NonFinalizable\EmptyParentClass::class => [
+                new \ReflectionClass(NonFinalizable\EmptyParentClass::class),
                 [
-                    new \ReflectionClass(\LogicException::class),
+                    new \ReflectionClass(Finalizable\EmptyChildClass::class),
                 ],
                 false,
             ],
-            'class with no children' => [
-                new \ReflectionClass(__CLASS__),
+            Finalizable\EmptyChildClass::class => [
+                new \ReflectionClass(Finalizable\EmptyChildClass::class),
+                [],
+                true,
+            ],
+            NonFinalizable\ClassWithNoMethods::class => [
+                new \ReflectionClass(NonFinalizable\ClassWithNoMethods::class),
+                [],
+                false,
+            ],
+            Finalizable\ClassWithNoMethods::class => [
+                new \ReflectionClass(Finalizable\ClassWithNoMethods::class),
                 [],
                 true,
             ],
