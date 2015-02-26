@@ -12,7 +12,8 @@ final class IsFinalizable
      */
     public function __invoke(\ReflectionClass $class, \ReflectionClass ...$definedClasses)
     {
-        return ! $this->hasChildClasses($class, $definedClasses);
+        return ! $class->isAbstract()
+            && ! $this->hasChildClasses($class, $definedClasses);
     }
 
     /**
