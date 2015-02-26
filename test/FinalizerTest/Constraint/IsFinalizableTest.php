@@ -63,23 +63,6 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
                 [],
                 false,
             ],
-            'final class with (already final, therefore finalizable)' => [
-                new \ReflectionClass(\Closure::class),
-                [],
-                true,
-            ],
-            'abstract class with no children' => [
-                new \ReflectionClass(\FilterIterator::class),
-                [],
-                false,
-            ],
-            'abstract class with children' => [
-                new \ReflectionClass(\FilterIterator::class),
-                [
-                    new \ReflectionClass(\RecursiveFilterIterator::class)
-                ],
-                false,
-            ],
         ];
     }
 }
