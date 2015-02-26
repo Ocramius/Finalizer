@@ -69,7 +69,7 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
             Finalizable\InvokableClass::class => [
                 new \ReflectionClass(Finalizable\InvokableClass::class),
                 [],
-                false,
+                true,
             ],
         ];
     }
