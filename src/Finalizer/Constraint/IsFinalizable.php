@@ -29,9 +29,8 @@ final class IsFinalizable
      */
     private function isOnlyInvokable(\ReflectionClass $class)
     {
-        return $class->hasMethod('__invoke')
-            && ! $class->getMethod('__invoke')->isStatic()
-            && 1 === count($class->getMethods());
+        return ['__invoke'] === array_values(array_map('strtolower', $this->getNonConstructorMethodNames($class)))
+            && ! $class->getMethod('__invoke')->isStatic();
     }
 
     /**
@@ -67,12 +66,12 @@ final class IsFinalizable
     private function implementsOnlyInterfaceMethods(\ReflectionClass $class)
     {
         return ! array_diff(
-            $this->getMethodNames($class),
+            $this->getNonConstructorMethodNames($class),
             array_merge(
                 [],
                 [],
                 ...array_values(array_map(
-                    [$this, 'getMethodNames'],
+                    [$this, 'getNonConstructorMethodNames'],
                     $class->getInterfaces()
                 ))
             )
@@ -84,13 +83,18 @@ final class IsFinalizable
      *
      * @return string[] (indexed numerically)
      */
-    private function getMethodNames(\ReflectionClass $class)
+    private function getNonConstructorMethodNames(\ReflectionClass $class)
     {
         return array_values(array_map(
             function (\ReflectionMethod $method) {
                 return $method->getName();
             },
-            $class->getMethods()
+            array_filter(
+                $class->getMethods(),
+                function (\ReflectionMethod $method) {
+                    return ! $method->isConstructor();
+                }
+            )
         ));
     }
 }
