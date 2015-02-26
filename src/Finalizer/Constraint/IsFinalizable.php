@@ -53,27 +53,30 @@ final class IsFinalizable
     private function implementsOnlyInterfaceMethods(\ReflectionClass $class)
     {
         return ! array_diff(
-            array_map(
-                function (\ReflectionMethod $method) {
-                    return $method->getName();
-                },
-                $class->getMethods()
-            ),
+            $this->getMethodNames($class),
             array_merge(
                 [],
                 [],
                 ...array_values(array_map(
-                    function (\ReflectionClass $interface) {
-                        return array_map(
-                            function (\ReflectionMethod $method) {
-                                return $method->getName();
-                            },
-                            $interface->getMethods()
-                        );
-                    },
+                    [$this, 'getMethodNames'],
                     $class->getInterfaces()
                 ))
             )
         );
+    }
+
+    /**
+     * @param \ReflectionClass $class
+     *
+     * @return string[] (indexed numerically)
+     */
+    private function getMethodNames(\ReflectionClass $class)
+    {
+        return array_values(array_map(
+            function (\ReflectionMethod $method) {
+                return $method->getName();
+            },
+            $class->getMethods()
+        ));
     }
 }
