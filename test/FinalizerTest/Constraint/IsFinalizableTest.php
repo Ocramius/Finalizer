@@ -6,6 +6,9 @@ use Finalizer\Constraint\IsFinalizable;
 use FinalizerTestAsset\Finalizable;
 use FinalizerTestAsset\NonFinalizable;
 
+/**
+ * @covers \Finalizer\Constraint\IsFinalizable
+ */
 class IsFinalizableTest extends \PHPUnit_Framework_TestCase
 {
     /**
