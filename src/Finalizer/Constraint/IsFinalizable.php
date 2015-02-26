@@ -12,7 +12,7 @@ final class IsFinalizable
      */
     public function __invoke(\ReflectionClass $class, \ReflectionClass ...$definedClasses)
     {
-        return $this->hasChildClasses($class, $definedClasses);
+        return ! $this->hasChildClasses($class, $definedClasses);
     }
 
     /**
@@ -23,7 +23,7 @@ final class IsFinalizable
      */
     private function hasChildClasses(\ReflectionClass $class, array $definedClasses)
     {
-        return (bool) array_filter(
+        return array_filter(
             $definedClasses,
             function (\ReflectionClass $childClassCandidate) use ($class) {
                 $parentClass = $childClassCandidate->getParentClass();
