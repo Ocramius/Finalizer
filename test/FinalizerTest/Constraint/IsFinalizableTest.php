@@ -53,6 +53,11 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
                 [],
                 true,
             ],
+            Finalizable\FooBarMethodClass::class => [
+                new \ReflectionClass(Finalizable\FooBarMethodClass::class),
+                [],
+                true,
+            ],
             'final class with (already final, therefore finalizable)' => [
                 new \ReflectionClass(\Closure::class),
                 [],
