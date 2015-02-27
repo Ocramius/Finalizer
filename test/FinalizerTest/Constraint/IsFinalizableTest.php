@@ -14,14 +14,26 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider finalizableClassesProvider
      *
-     * @param \ReflectionClass   $class
-     * @param \ReflectionClass[] $definedClasses
+     * @param string   $className
+     * @param string[] $definedClasses
      */
-    public function testIsFinalizable(\ReflectionClass $class, array $definedClasses)
+    public function testIsFinalizable($className, array $definedClasses)
     {
-        $finalizable = false === strpos($class->getName(), 'NonFinalizable');
+        $finalizable = false === strpos($className, 'NonFinalizable');
 
-        $this->assertSame($finalizable, (new IsFinalizable())->__invoke($class, ...$definedClasses));
+        $this->assertSame(
+            $finalizable,
+            (new IsFinalizable())
+                ->__invoke(
+                    new \ReflectionClass($className),
+                    ...array_map(
+                        function ($className) {
+                            return new \ReflectionClass($className);
+                        },
+                        $definedClasses
+                    )
+                )
+        );
     }
 
     /**
@@ -31,53 +43,53 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
     {
         return [
             NonFinalizable\EmptyParentClass::class => [
-                new \ReflectionClass(NonFinalizable\EmptyParentClass::class),
+                NonFinalizable\EmptyParentClass::class,
                 [
-                    new \ReflectionClass(Finalizable\EmptyChildClass::class),
+                    Finalizable\EmptyChildClass::class,
                 ],
             ],
             Finalizable\EmptyChildClass::class => [
-                new \ReflectionClass(Finalizable\EmptyChildClass::class),
+                Finalizable\EmptyChildClass::class,
                 [],
             ],
             NonFinalizable\ClassWithNoMethods::class => [
-                new \ReflectionClass(NonFinalizable\ClassWithNoMethods::class),
+                NonFinalizable\ClassWithNoMethods::class,
                 [],
             ],
             Finalizable\ClassWithNoMethods::class => [
-                new \ReflectionClass(Finalizable\ClassWithNoMethods::class),
+                Finalizable\ClassWithNoMethods::class,
                 [],
             ],
             Finalizable\FooMethodClass::class => [
-                new \ReflectionClass(Finalizable\FooMethodClass::class),
+                Finalizable\FooMethodClass::class,
                 [],
             ],
             Finalizable\FooBarMethodClass::class => [
-                new \ReflectionClass(Finalizable\FooBarMethodClass::class),
+                Finalizable\FooBarMethodClass::class,
                 [],
             ],
             NonFinalizable\FooBarMethodClass::class => [
-                new \ReflectionClass(NonFinalizable\FooBarMethodClass::class),
+                NonFinalizable\FooBarMethodClass::class,
                 [],
             ],
             Finalizable\InvokableClass::class => [
-                new \ReflectionClass(Finalizable\InvokableClass::class),
+                Finalizable\InvokableClass::class,
                 [],
             ],
             NonFinalizable\InvokableClassWithAdditionalMethods::class => [
-                new \ReflectionClass(NonFinalizable\InvokableClassWithAdditionalMethods::class),
+                NonFinalizable\InvokableClassWithAdditionalMethods::class,
                 [],
             ],
             Finalizable\InvokableClassWithConstructor::class => [
-                new \ReflectionClass(Finalizable\InvokableClassWithConstructor::class),
+                Finalizable\InvokableClassWithConstructor::class,
                 [],
             ],
             Finalizable\ClassWithConstructor::class => [
-                new \ReflectionClass(Finalizable\ClassWithConstructor::class),
+                Finalizable\ClassWithConstructor::class,
                 [],
             ],
             Finalizable\FooBarConstructorMethodClass::class => [
-                new \ReflectionClass(Finalizable\FooBarConstructorMethodClass::class),
+                Finalizable\FooBarConstructorMethodClass::class,
                 [],
             ],
         ];
