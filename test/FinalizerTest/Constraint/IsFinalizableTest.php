@@ -92,6 +92,14 @@ class IsFinalizableTest extends \PHPUnit_Framework_TestCase
                 Finalizable\FooBarConstructorMethodClass::class,
                 [],
             ],
+            Finalizable\ClassWithPrivateMethod::class => [
+                Finalizable\ClassWithPrivateMethod::class,
+                [],
+            ],
+            Finalizable\ClassWithProtectedMethod::class => [
+                Finalizable\ClassWithProtectedMethod::class,
+                [],
+            ],
         ];
     }
 }
