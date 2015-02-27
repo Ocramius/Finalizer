@@ -25,9 +25,7 @@ class CheckFinalClassesCommandTest extends \PHPUnit_Framework_TestCase
 
         (new CheckFinalClassesCommand())->run(new ArrayInput(['directories' => $paths]), $output);
 
-        $outputString = $output->fetch();
-
-        $this->assertEquals($expectedOutput, $outputString);
+        $this->assertCount(count(explode("\n", $expectedOutput)), explode(PHP_EOL, $output->fetch()));
     }
 
     /**
