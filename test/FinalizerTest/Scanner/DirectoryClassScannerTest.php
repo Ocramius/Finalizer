@@ -10,7 +10,7 @@ use Finalizer\Scanner\DirectoryClassScanner;
 class DirectoryClassScannerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @dataProvider testPathsProvider
+     * @dataProvider pathsProvider
      *
      * @param string[]|\Traversable $paths
      * @param string[]              $expectedClasses
@@ -30,7 +30,7 @@ class DirectoryClassScannerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider testPathsProvider
+     * @dataProvider pathsProvider
      *
      * @param string[]|array $paths
      * @param string[]       $expectedClasses
@@ -43,7 +43,7 @@ class DirectoryClassScannerTest extends \PHPUnit_Framework_TestCase
     /**
      * @return string[][][]
      */
-    public function testPathsProvider()
+    public function pathsProvider()
     {
         return [
             [
