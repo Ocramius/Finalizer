@@ -87,15 +87,15 @@ class MapIteratorTest extends \PHPUnit_Framework_TestCase
         /* @var $wrappedIterator \Iterator|\PHPUnit_Framework_MockObject_MockObject */
         $wrappedIterator = $this->getMock(\Iterator::class);
 
-        $wrappedIterator->expects($this->at(0))->method('key')->will($this->returnValue(true));
-        $wrappedIterator->expects($this->at(1))->method('key')->will($this->returnValue(false));
+        $wrappedIterator->expects($this->at(0))->method('valid')->will($this->returnValue(true));
+        $wrappedIterator->expects($this->at(1))->method('valid')->will($this->returnValue(false));
 
         $map->expects($this->never())->method('__invoke');
 
         $iterator = new MapIterator($wrappedIterator, $map);
 
-        $this->assertTrue($iterator->key());
-        $this->assertFalse($iterator->key());
+        $this->assertTrue($iterator->valid());
+        $this->assertFalse($iterator->valid());
     }
 
     /**
