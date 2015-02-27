@@ -12,7 +12,7 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover ./clover.xml
-  - ./finalizer src
+  - ./finalizer finalizer:check-final-classes src
 
 matrix:
   allow_failures:
