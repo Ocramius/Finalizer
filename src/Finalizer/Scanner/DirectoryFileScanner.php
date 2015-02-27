@@ -17,19 +17,7 @@ final class DirectoryFileScanner
 
         array_map(
             [$appendIterator, 'append'],
-            array_map(
-                function ($path) {
-                    return new \RegexIterator(
-                        new \RecursiveIteratorIterator(
-                            new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS),
-                            \RecursiveIteratorIterator::LEAVES_ONLY
-                        ),
-                        '/^.+(\.php|\.hh)$/i',
-                        \RecursiveRegexIterator::GET_MATCH
-                    );
-                },
-                $directories
-            )
+            array_map([$this, 'buildRegexDirectoryIterator'], $directories)
         );
 
         return new MapIterator(
@@ -37,6 +25,23 @@ final class DirectoryFileScanner
             function (array $fileInfo) {
                 return $fileInfo[0];
             }
+        );
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return \Iterator
+     */
+    private function buildRegexDirectoryIterator($path)
+    {
+        return new \RegexIterator(
+            new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS),
+                \RecursiveIteratorIterator::LEAVES_ONLY
+            ),
+            '/^.+(\.php|\.hh)$/i',
+            \RecursiveRegexIterator::GET_MATCH
         );
     }
 }
