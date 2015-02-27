@@ -92,7 +92,7 @@ final class IsFinalizable
             array_filter(
                 $class->getMethods(),
                 function (\ReflectionMethod $method) {
-                    return ! $method->isConstructor();
+                    return $method->isPublic() && ! $method->isConstructor();
                 }
             )
         ));
