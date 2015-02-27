@@ -1,4 +1,21 @@
 {
+    "name":        "ocramius/finalizer",
+    "description": "A simple utility library that checks for PHP classes that should or shouldn't be marked as final",
+    "type":        "library",
+    "license":     "MIT",
+    "homepage":    "https://github.com/Ocramius/Finalizer",
+    "keywords":    [
+        "final",
+        "syntax",
+        "code quality"
+    ],
+    "authors": [
+        {
+            "name":     "Marco Pivetta",
+            "email":    "ocramius@gmail.com",
+            "homepage": "http://ocramius.github.io/"
+        }
+    ],
     "autoload": {
         "psr-0": {
             "Finalizer\\": "src"
