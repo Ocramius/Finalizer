@@ -15,18 +15,10 @@ class DirectoryFileScannerTest extends \PHPUnit_Framework_TestCase
      *
      * @param string[] $paths
      */
-    public function testProducesIterator(array $paths)
+    public function testProducesStringsIterator(array $paths)
     {
         $this->assertInstanceOf(\Traversable::class, (new DirectoryFileScanner())->__invoke($paths));
-    }
 
-    /**
-     * @dataProvider pathsProvider
-     *
-     * @param string[] $paths
-     */
-    public function testProducesStrings(array $paths)
-    {
         foreach ((new DirectoryFileScanner())->__invoke($paths) as $path) {
             $this->assertInternalType('string', $path);
         }
