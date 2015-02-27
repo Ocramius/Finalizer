@@ -4,6 +4,8 @@ This library aims at providing simple tools that help deciding whether
 a class should or shouldn't be declared as `final`.
 
 [![Build Status](https://travis-ci.org/Ocramius/Finalizer.svg?branch=master)](https://travis-ci.org/Ocramius/Finalizer)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ocramius/Finalizer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Ocramius/Finalizer/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Ocramius/Finalizer/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Ocramius/Finalizer/?branch=master)
 [![Dependency Status](https://www.versioneye.com/package/php--ocramius--finalizer/badge.png)](https://www.versioneye.com/package/php--ocramius--finalizer)
 [![HHVM Status](http://hhvm.h4cc.de/badge/ocramius/finalizer.png)](http://hhvm.h4cc.de/package/ocramius/finalizer)
 
