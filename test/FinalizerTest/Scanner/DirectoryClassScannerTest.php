@@ -17,15 +17,16 @@ class DirectoryClassScannerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDirectoryScannerWithPaths($paths, $expectedClasses)
     {
-        $this->assertEquals(
-            $expectedClasses,
-            array_values(array_map(
-                function (\ReflectionClass $class) {
-                    return $class->getName();
-                },
-                (new DirectoryClassScanner())->__invoke($paths)
-            ))
-        );
+        $found = array_values(array_map(
+            function (\ReflectionClass $class) {
+                return $class->getName();
+            },
+            (new DirectoryClassScanner())->__invoke($paths)
+        ));
+
+        sort($found);
+
+        $this->assertEquals($expectedClasses, $found);
     }
 
     /**
@@ -37,7 +38,18 @@ class DirectoryClassScannerTest extends \PHPUnit_Framework_TestCase
             [
                 [__FILE__],
                 [__CLASS__],
-            ]
+            ],
+            [
+                [__FILE__, __DIR__ . '/DirectoryFileScannerTest.php'],
+                [__CLASS__, DirectoryFileScannerTest::class],
+            ],
+            [
+                [
+                    __FILE__,
+                    __DIR__ . '/../../FinalizerTestAsset/Scanner/DirectoryFileScanner/DirWithOnePhpFile/1.php'
+                ],
+                [__CLASS__],
+            ],
         ];
     }
 }
