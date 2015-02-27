@@ -30,6 +30,17 @@ class DirectoryClassScannerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider testPathsProvider
+     *
+     * @param string[]|array $paths
+     * @param string[]       $expectedClasses
+     */
+    public function testDirectoryScannerWithIterator(array $paths, $expectedClasses)
+    {
+        $this->testDirectoryScannerWithPaths(new \ArrayIterator($paths), $expectedClasses);
+    }
+
+    /**
      * @return string[][][]
      */
     public function testPathsProvider()
