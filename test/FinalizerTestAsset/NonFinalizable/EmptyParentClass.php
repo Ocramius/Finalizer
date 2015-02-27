@@ -1,6 +1,7 @@
 <?php
 
 namespace FinalizerTestAsset\NonFinalizable;
+
 use FinalizerTestAsset\EmptyInterface;
 
 /**
