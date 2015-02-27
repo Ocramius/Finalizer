@@ -12,51 +12,54 @@ class InheritanceClassesTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider classesProvider
      *
-     * @param \ReflectionClass   $class
-     * @param \ReflectionClass[] $expectedClasses
+     * @param string   $className
+     * @param string[] $expectedClasses
      */
-    public function testInheritanceClasses(\ReflectionClass $class, array $expectedClasses)
+    public function testInheritanceClasses($className, array $expectedClasses)
     {
         $indexedClasses = array_combine(
-            array_values(array_map(
-                function (\ReflectionClass $class) {
-                    return $class->getName();
+            $expectedClasses,
+            array_map(
+                function ($className) {
+                    return new \ReflectionClass($className);
                 },
                 $expectedClasses
-            )),
-            $expectedClasses
+            )
         );
 
-        $this->assertEquals($indexedClasses, (new InheritanceClasses())->__invoke($class));
+        $this->assertEquals(
+            $indexedClasses,
+            (new InheritanceClasses())->__invoke(new \ReflectionClass($className))
+        );
     }
 
     /**
-     * @return \ReflectionClass[][]|\ReflectionClass[][][]
+     * @return string[][]|string[][][]
      */
     public function classesProvider()
     {
         return [
             'class with no parent class' => [
-                new \ReflectionClass(\Exception::class),
+                \Exception::class,
                 [
-                    new \ReflectionClass(\Exception::class),
+                    \Exception::class,
                 ],
                 false,
             ],
             'class with one parent class' => [
-                new \ReflectionClass(\LogicException::class),
+                \LogicException::class,
                 [
-                    new \ReflectionClass(\LogicException::class),
-                    new \ReflectionClass(\Exception::class),
+                    \LogicException::class,
+                    \Exception::class,
                 ],
                 false,
             ],
             'class with multiple parent classes' => [
-                new \ReflectionClass(\InvalidArgumentException::class),
+                \InvalidArgumentException::class,
                 [
-                    new \ReflectionClass(\InvalidArgumentException::class),
-                    new \ReflectionClass(\LogicException::class),
-                    new \ReflectionClass(\Exception::class),
+                    \InvalidArgumentException::class,
+                    \LogicException::class,
+                    \Exception::class,
                 ],
                 false,
             ],
