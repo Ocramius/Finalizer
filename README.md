@@ -29,8 +29,8 @@ php composer.phar require ocramius/finalizer:~1.0
 In your console, simply type:
 
 ```php
-./vendor/bin/finalizer finalize:check-final-classes path/to/directory
-./vendor/bin/finalizer finalize:check-final-classes also/supports multiple/directories as/parameters
+./vendor/bin/finalizer finalizer:check-final-classes path/to/directory
+./vendor/bin/finalizer finalizer:check-final-classes also/supports multiple/directories as/parameters
 ```
 
 Note that finalizer will take decisions on whether classes should or 
