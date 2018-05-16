@@ -3,11 +3,12 @@
 namespace FinalizerTest\Scanner;
 
 use Finalizer\Scanner\DirectoryClassScanner;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Finalizer\Scanner\DirectoryClassScanner
  */
-class DirectoryClassScannerTest extends \PHPUnit_Framework_TestCase
+class DirectoryClassScannerTest extends TestCase
 {
     /**
      * @dataProvider pathsProvider

@@ -5,11 +5,12 @@ namespace FinalizerTest\Constraint;
 use Finalizer\Constraint\IsFinalizable;
 use FinalizerTestAsset\Finalizable;
 use FinalizerTestAsset\NonFinalizable;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Finalizer\Constraint\IsFinalizable
  */
-class IsFinalizableTest extends \PHPUnit_Framework_TestCase
+class IsFinalizableTest extends TestCase
 {
     /**
      * @dataProvider finalizableClassesProvider
