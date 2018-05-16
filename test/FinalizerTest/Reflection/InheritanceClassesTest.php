@@ -3,11 +3,12 @@
 namespace FinalizerTest\Reflection;
 
 use Finalizer\Reflection\InheritanceClasses;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Finalizer\Reflection\InheritanceClasses
  */
-class InheritanceClassesTest extends \PHPUnit_Framework_TestCase
+class InheritanceClassesTest extends TestCase
 {
     /**
      * @dataProvider classesProvider

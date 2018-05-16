@@ -3,15 +3,14 @@
 namespace FinalizerTest\Console;
 
 use Finalizer\Console\CheckFinalClassesCommand;
-use FinalizerTestAsset\Finalizable;
-use FinalizerTestAsset\NonFinalizable;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Tests\Fixtures\DummyOutput;
 
 /**
  * @covers \Finalizer\Console\CheckFinalClassesCommand
  */
-class CheckFinalClassesCommandTest extends \PHPUnit_Framework_TestCase
+class CheckFinalClassesCommandTest extends TestCase
 {
     /**
      * @dataProvider pathsProvider

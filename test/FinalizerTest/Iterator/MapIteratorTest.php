@@ -3,18 +3,19 @@
 namespace FinalizerTest\Reflection;
 
 use Finalizer\Iterator\MapIterator;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Finalizer\Iterator\MapIterator
  */
-class MapIteratorTest extends \PHPUnit_Framework_TestCase
+class MapIteratorTest extends TestCase
 {
     public function testCurrent()
     {
         /* @var $map callable|\PHPUnit_Framework_MockObject_MockObject */
-        $map             = $this->getMock(\stdClass::class, ['__invoke']);
+        $map             = $this->createPartialMock(\stdClass::class, ['__invoke']);
         /* @var $wrappedIterator \Iterator|\PHPUnit_Framework_MockObject_MockObject */
-        $wrappedIterator = $this->getMock(\Iterator::class);
+        $wrappedIterator = $this->createMock(\Iterator::class);
 
         $wrappedIterator->expects($this->at(0))->method('current')->will($this->returnValue('foo'));
         $wrappedIterator->expects($this->at(1))->method('current')->will($this->returnValue('bar'));
@@ -31,9 +32,9 @@ class MapIteratorTest extends \PHPUnit_Framework_TestCase
     public function testNext()
     {
         /* @var $map callable|\PHPUnit_Framework_MockObject_MockObject */
-        $map             = $this->getMock(\stdClass::class, ['__invoke']);
+        $map             = $this->createPartialMock(\stdClass::class, ['__invoke']);
         /* @var $wrappedIterator \Iterator|\PHPUnit_Framework_MockObject_MockObject */
-        $wrappedIterator = $this->getMock(\Iterator::class);
+        $wrappedIterator = $this->createMock(\Iterator::class);
 
         $wrappedIterator->expects($this->exactly(2))->method('next');
 
@@ -48,9 +49,9 @@ class MapIteratorTest extends \PHPUnit_Framework_TestCase
     public function testRewind()
     {
         /* @var $map callable|\PHPUnit_Framework_MockObject_MockObject */
-        $map             = $this->getMock(\stdClass::class, ['__invoke']);
+        $map             = $this->createPartialMock(\stdClass::class, ['__invoke']);
         /* @var $wrappedIterator \Iterator|\PHPUnit_Framework_MockObject_MockObject */
-        $wrappedIterator = $this->getMock(\Iterator::class);
+        $wrappedIterator = $this->createMock(\Iterator::class);
 
         $wrappedIterator->expects($this->exactly(2))->method('rewind');
 
@@ -65,9 +66,9 @@ class MapIteratorTest extends \PHPUnit_Framework_TestCase
     public function testKey()
     {
         /* @var $map callable|\PHPUnit_Framework_MockObject_MockObject */
-        $map             = $this->getMock(\stdClass::class, ['__invoke']);
+        $map             = $this->createPartialMock(\stdClass::class, ['__invoke']);
         /* @var $wrappedIterator \Iterator|\PHPUnit_Framework_MockObject_MockObject */
-        $wrappedIterator = $this->getMock(\Iterator::class);
+        $wrappedIterator = $this->createMock(\Iterator::class);
 
         $wrappedIterator->expects($this->at(0))->method('key')->will($this->returnValue('foo'));
         $wrappedIterator->expects($this->at(1))->method('key')->will($this->returnValue('bar'));
@@ -83,9 +84,9 @@ class MapIteratorTest extends \PHPUnit_Framework_TestCase
     public function testValid()
     {
         /* @var $map callable|\PHPUnit_Framework_MockObject_MockObject */
-        $map             = $this->getMock(\stdClass::class, ['__invoke']);
+        $map             = $this->createPartialMock(\stdClass::class, ['__invoke']);
         /* @var $wrappedIterator \Iterator|\PHPUnit_Framework_MockObject_MockObject */
-        $wrappedIterator = $this->getMock(\Iterator::class);
+        $wrappedIterator = $this->createMock(\Iterator::class);
 
         $wrappedIterator->expects($this->at(0))->method('valid')->will($this->returnValue(true));
         $wrappedIterator->expects($this->at(1))->method('valid')->will($this->returnValue(false));
