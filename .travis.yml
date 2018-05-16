@@ -9,7 +9,7 @@ before_script:
   - composer update
 
 script:
-  - ./vendor/bin/phpunit --disallow-test-output --report-useless-tests --coverage-clover ./clover.xml
+  - ./vendor/bin/phpunit --disallow-test-output  --coverage-clover ./clover.xml
   - ./finalizer finalizer:check-final-classes src
 
 matrix:
