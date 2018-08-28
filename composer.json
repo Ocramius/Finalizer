@@ -17,14 +17,14 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Finalizer\\": "src"
+        "psr-4": {
+            "Finalizer\\": "src/Finalizer"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "FinalizerTest\\":      "test",
-            "FinalizerTestAsset\\": "test"
+        "psr-4": {
+            "FinalizerTest\\":      "test/FinalizerTest/",
+            "FinalizerTestAsset\\": "test/FinalizerTestAsset/"
         }
     },
     "require": {
