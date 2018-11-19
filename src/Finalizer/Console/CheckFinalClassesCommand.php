@@ -2,6 +2,7 @@
 
 namespace Finalizer\Console;
 
+use function count;
 use Finalizer\Constraint\IsFinalizable;
 use Finalizer\Scanner\DirectoryClassScanner;
 use Finalizer\Scanner\DirectoryFileScanner;
@@ -43,25 +44,27 @@ EOT
     /**
      * {@inheritDoc}
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output) : int
     {
         $classScanner = new DirectoryClassScanner();
         $fileScanner  = new DirectoryFileScanner();
         $classes      = $classScanner($fileScanner($input->getArgument('directories')));
 
-        $this->renderClassesToFinalize($classes, $output);
-        $this->renderClassesToDeFinalize($classes, $output);
+        $finalizeStatusCode = $this->renderClassesToFinalize($classes, $output);
+        $deFinalizeStatusCode = $this->renderClassesToDeFinalize($classes, $output);
+
+        return max($finalizeStatusCode, $deFinalizeStatusCode);
     }
 
     /**
      * @param \ReflectionClass[] $classes
-     * @param OutputInterface    $output
      */
-    private function renderClassesToFinalize(array $classes, OutputInterface $output)
+    private function renderClassesToFinalize(array $classes, OutputInterface $output) : int
     {
         $tableHelper = new Table($output);
 
-        if ($toFinalize = $this->getClassesToFinalize($classes)) {
+        $toFinalize = $this->getClassesToFinalize($classes);
+        if (count($toFinalize) > 0) {
             $output->writeln('<info>Following classes need to be made final:</info>');
 
             $tableHelper->addRows(array_map(
@@ -72,18 +75,22 @@ EOT
             ));
 
             $tableHelper->render();
+
+            return 1;
         }
+
+        return 0;
     }
 
     /**
      * @param \ReflectionClass[] $classes
-     * @param OutputInterface    $output
      */
-    private function renderClassesToDeFinalize(array $classes, OutputInterface $output)
+    private function renderClassesToDeFinalize(array $classes, OutputInterface $output) : int
     {
         $tableHelper = new Table($output);
 
-        if ($toDeFinalize = $this->getClassesToDeFinalize($classes)) {
+        $toDeFinalize = $this->getClassesToDeFinalize($classes);
+        if (count($toDeFinalize) > 0) {
             $output->writeln('<error>Following classes are final and need to be made extensible again:</error>');
 
             $tableHelper->addRows(array_map(
@@ -94,7 +101,11 @@ EOT
             ));
 
             $tableHelper->render();
+
+            return 1;
         }
+
+        return 0;
     }
 
     /**
